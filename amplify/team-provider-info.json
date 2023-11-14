@@ -28,5 +28,44 @@
         "textGenAPI": {}
       }
     }
+  },
+  "testenv": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bedrockcharacterdemo-testenv-180707-authRole",
+      "UnauthRoleArn": "arn:aws:iam::754992014538:role/amplify-bedrockcharacterdemo-testenv-180707-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::754992014538:role/amplify-bedrockcharacterdemo-testenv-180707-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-bedrockcharacterdemo-testenv-180707-deployment",
+      "UnauthRoleName": "amplify-bedrockcharacterdemo-testenv-180707-unauthRole",
+      "StackName": "amplify-bedrockcharacterdemo-testenv-180707",
+      "StackId": "arn:aws:cloudformation:us-east-1:754992014538:stack/amplify-bedrockcharacterdemo-testenv-180707/a57abe30-79aa-11ee-96cc-12d7f31fccfd",
+      "AmplifyAppId": "d29fhkjpb9b02o"
+    },
+    "categories": {
+      "function": {
+        "BedrockCharacterDemoGenerateText": {
+          "deploymentBucketName": "amplify-bedrockcharacterdemo-testenv-180707-deployment",
+          "s3Key": "amplify-builds/BedrockCharacterDemoGenerateText-2f43663666514b497777-build.zip"
+        },
+        "KendraBackedChatBotGenerationFunction": {
+          "kendraIndexId": "85517a2a-b43b-4082-b12e-061b42e230b2",
+          "bedrockRegion": "us-west-2",
+          "kendraRegion": "us-west-2",
+          "dynamoSessionTable": "SessionTable",
+          "deploymentBucketName": "amplify-bedrockcharacterdemo-testenv-180707-deployment",
+          "s3Key": "amplify-builds/KendraBackedChatBotGenerationFunction-7a356c334c636f55584b-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d29fhkjpb9b02o",
+          "type": "manual"
+        }
+      },
+      "api": {
+        "textGenAPI": {},
+        "textGenerationAPI": {}
+      }
+    }
   }
 }

@@ -4,6 +4,9 @@ import DemoUtils from "./demo-utils";
 import { cognitoIdentityPoolId } from "./demo-credentials.js";
 import { Amplify, API } from "aws-amplify";
 import awsConfig from "./aws-exports";
+//import { text } from "stream/consumers";
+import {v4 as uuidv4} from 'uuid';
+
 
 let host;
 let scene;
@@ -17,7 +20,8 @@ async function createScene() {
   scene = new Scene();
 
   const { shadowGenerator } = DemoUtils.setupSceneEnvironment(scene);
-  initUi();
+
+  initUi(uuidv4());
 
   // ===== Configure the AWS SDK =====
 
@@ -50,12 +54,12 @@ async function createScene() {
   return scene;
 }
 
-function initUi() {
+function initUi(sessionId) {
   submitButton = document.getElementById("submitButton");
-  submitButton.onclick = speak.bind(this);
+  submitButton.onclick = speak.bind(this, sessionId);
 }
 
-async function speak() {
+async function speak(sessionId) {
   // Temporarily disable the submit button.
   submitButton.disabled = true;
   submitButton.innerHTML = "Processing...";
@@ -68,17 +72,18 @@ async function speak() {
   const apiParams = {
     queryStringParameters: {
       userPrompt,
+      sessionId
     },
   };
-  const text = await API.get("textGenAPI", "/generateText", apiParams);
-  console.log(text);
+  const completion = await API.get("textGenerationAPI", "/text-generation", apiParams);
+  console.log(completion);
 
   // Re-enable the submit button.
   submitButton.disabled = false;
   submitButton.innerHTML = "Submit Prompt";
 
   // const speech = document.getElementById('speechText').value;
-  host.TextToSpeechFeature.play(text);
+  host.TextToSpeechFeature.play(completion['answer']);
 }
 
 DemoUtils.loadDemo(createScene);

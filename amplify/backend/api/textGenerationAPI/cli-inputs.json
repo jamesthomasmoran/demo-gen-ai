@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/text-generation": {
+      "name": "/text-generation",
+      "lambdaFunction": "KendraBackedChatBotGenerationFunction",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

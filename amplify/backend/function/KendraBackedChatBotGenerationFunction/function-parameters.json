@@ -1,0 +1,21 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "kendraIndexId",
+      "environmentVariableName": "KENDRA_INDEX_ID"
+    },
+    {
+      "cloudFormationParameterName": "bedrockRegion",
+      "environmentVariableName": "BEDROCK_REGION"
+    },
+    {
+      "cloudFormationParameterName": "kendraRegion",
+      "environmentVariableName": "KENDRA_REGION"
+    },
+    {
+      "cloudFormationParameterName": "dynamoSessionTable",
+      "environmentVariableName": "DYNAMO_SESSION_TABLE"
+    }
+  ]
+}

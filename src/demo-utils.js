@@ -41,24 +41,24 @@ async function loadDemo(createScene) {
 function setupSceneEnvironment(scene) {
   // Create a simple environment.
   const environmentHelper = scene.createDefaultEnvironment({
-    groundOpacity: 1,
-    groundShadowLevel: 0.1,
+    //groundOpacity: 1,
+    //groundShadowLevel: 0.1,
   });
-  environmentHelper.setMainColor(Color3.Teal());
+  environmentHelper.setMainColor(new Color3(0.05, 0.06, 0.09));
+  scene.clearColor = new Color3(0.05, 0.06, 0.09)
+  //scene.environmentIntensity = 1.2;
 
-  scene.environmentIntensity = 1.2;
+  //const shadowLight = new DirectionalLight(
+    //'shadowLight',
+    //new Vector3(0.8, -2, -1)
+  //);
+  //shadowLight.diffuse = new Color3(1, 0.9, 0.62);
+  //shadowLight.intensity = 2;
 
-  const shadowLight = new DirectionalLight(
-    'shadowLight',
-    new Vector3(0.8, -2, -1)
-  );
-  shadowLight.diffuse = new Color3(1, 0.9, 0.62);
-  shadowLight.intensity = 2;
-
-  const keyLight = new DirectionalLight('keyLight', new Vector3(0.3, -1, -2));
-  keyLight.diffuse = new Color3(1, 0.9, 0.65);
-  keyLight.intensity = 3;
-
+  //const keyLight = new DirectionalLight('keyLight', new Vector3(0.3, -1, -2));
+  //keyLight.diffuse = new Color3(1, 0.9, 0.65);
+  //keyLight.intensity = 3;
+  
   // Add a camera.
   const cameraRotation = Angle.FromDegrees(85).radians();
   const cameraPitch = Angle.FromDegrees(70).radians();
@@ -66,24 +66,25 @@ function setupSceneEnvironment(scene) {
     'camera',
     cameraRotation,
     cameraPitch,
-    2.6,
-    new Vector3(0, 1.0, 0)
+    0.8,
+    new Vector3(0.15, 1.65, 0)
   );
   camera.wheelDeltaPercentage = 0.01;
   camera.minZ = 0.01;
 
   // Initialize user control of camera.
-  const canvas = scene.getEngine().getRenderingCanvas();
-  camera.attachControl(canvas, true);
+  //const canvas = scene.getEngine().getRenderingCanvas();
+  
 
-  const shadowGenerator = new ShadowGenerator(2048, shadowLight);
-  shadowGenerator.useBlurExponentialShadowMap = true;
-  shadowGenerator.blurKernel = 8;
-  scene.meshes.forEach(mesh => {
-    shadowGenerator.addShadowCaster(mesh);
-  });
+  //const shadowGenerator = new ShadowGenerator(2048, shadowLight);
+  //shadowGenerator.useBlurExponentialShadowMap = true;
+  //shadowGenerator.blurKernel = 8;
+  //scene.meshes.forEach(mesh => {
+   // shadowGenerator.addShadowCaster(mesh);
+  //});
 
-  return {scene, shadowGenerator};
+  //return {scene, shadowGenerator};
+  return scene
 }
 
 export default {

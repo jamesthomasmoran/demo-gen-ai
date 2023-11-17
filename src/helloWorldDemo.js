@@ -11,7 +11,7 @@ import {v4 as uuidv4} from 'uuid';
 let host;
 let scene;
 let submitButton;
-
+let chatHistory = ''
 Amplify.configure(awsConfig);
 
 async function createScene() {
@@ -19,7 +19,7 @@ async function createScene() {
   // right-hand or left-hand coordinate system for babylon scene
   scene = new Scene();
 
-  const { shadowGenerator } = DemoUtils.setupSceneEnvironment(scene);
+   DemoUtils.setupSceneEnvironment(scene);
 
   initUi(uuidv4());
 
@@ -47,9 +47,9 @@ async function createScene() {
   host.PointOfInterestFeature.setTarget(scene.activeCamera);
 
   // Enable shadows.
-  scene.meshes.forEach((mesh) => {
-    shadowGenerator.addShadowCaster(mesh);
-  });
+  //scene.meshes.forEach((mesh) => {
+   // shadowGenerator.addShadowCaster(mesh);
+  //});
 
   return scene;
 }
@@ -72,18 +72,18 @@ async function speak(sessionId) {
   const apiParams = {
     queryStringParameters: {
       userPrompt,
-      sessionId
+      chatHistory
     },
   };
-  const completion = await API.get("textGenerationAPI", "/text-generation", apiParams);
-  console.log(completion);
-
+  const completion = await API.get("textGenAPI", "/generateText", apiParams);
+  console.log(completion.answer);
+  chatHistory = completion.chatHistory
   // Re-enable the submit button.
   submitButton.disabled = false;
-  submitButton.innerHTML = "Submit Prompt";
+  submitButton.innerHTML = "Ask a Question";
 
   // const speech = document.getElementById('speechText').value;
-  host.TextToSpeechFeature.play(completion['answer']);
+  host.TextToSpeechFeature.play(completion.answer);
 }
 
 DemoUtils.loadDemo(createScene);

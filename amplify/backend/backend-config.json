@@ -13,31 +13,11 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "API Gateway"
-    },
-    "textGenerationAPI": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "KendraBackedChatBotGenerationFunction"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
     }
   },
   "function": {
     "BedrockCharacterDemoGenerateText": {
       "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "KendraBackedChatBotGenerationFunction": {
-      "build": true,
-      "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
@@ -63,54 +43,6 @@
         {
           "category": "function",
           "resourceName": "BedrockCharacterDemoGenerateText"
-        }
-      ]
-    },
-    "AMPLIFY_function_KendraBackedChatBotGenerationFunction_bedrockRegion": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "KendraBackedChatBotGenerationFunction"
-        }
-      ]
-    },
-    "AMPLIFY_function_KendraBackedChatBotGenerationFunction_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "KendraBackedChatBotGenerationFunction"
-        }
-      ]
-    },
-    "AMPLIFY_function_KendraBackedChatBotGenerationFunction_dynamoSessionTable": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "KendraBackedChatBotGenerationFunction"
-        }
-      ]
-    },
-    "AMPLIFY_function_KendraBackedChatBotGenerationFunction_kendraIndexId": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "KendraBackedChatBotGenerationFunction"
-        }
-      ]
-    },
-    "AMPLIFY_function_KendraBackedChatBotGenerationFunction_kendraRegion": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "KendraBackedChatBotGenerationFunction"
-        }
-      ]
-    },
-    "AMPLIFY_function_KendraBackedChatBotGenerationFunction_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "KendraBackedChatBotGenerationFunction"
         }
       ]
     },

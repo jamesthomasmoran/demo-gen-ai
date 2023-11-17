@@ -13,21 +13,26 @@ export async function handler(event) {
 
 
   // Grab the prompt text that the user submitted.
-  let { userPrompt,chatHistory } = event.queryStringParameters;
+  const { userPrompt } = event.queryStringParameters;
 
-
+  const bodyConfig = {
+    prompt: `\n\nHuman: ${userPrompt}.\n\nAssistant:`,
+    max_tokens_to_sample: 300, // rough maximum for the response length
+    temperature: 0.5, // 0-1. Higher values can increase randomness of word choices.
+    top_k: 250, // Higher values can avoid repetition in the response.
+    top_p: 0.5, // 0-1. Higher values increase word diversity.
+    stop_sequences: ["\\n\\nHuman:"],
+  };
 
  /* Initialize the LLM to use to answer the question */
-const model = new Bedrock({ model: "meta.llama2-13b-chat-v1", 
-region: "us-west-2",
-maxTokens:2000
-});
+const model = new Bedrock({ model: "anthropic.claude-instant-v1", 
+region: "us-west-2"});
 
 
 /* Create the vectorstore */
 const retriever = new AmazonKendraRetriever({
   topK: 10,
-  indexId: "57ffefef-4dbc-46bc-b7dd-b38189c0b2cf",
+  indexId: "725b295a-2729-4a32-bb0d-270790bc27db",
   region: "us-west-2", // Your region
 });
 
@@ -55,7 +60,7 @@ const formatChatHistory = (
  * inputVariables: ["chatHistory", "context", "question"]
  */
 const questionPrompt = PromptTemplate.fromTemplate(
-  `\n\nHuman:You are an AI Assistant.Use the following pieces of context to answer the question at the end in less than 100 words.Remove special characters like &.Remove special characters like & from your answer. Do not mention using less than 100 words in your answer. If you don't know the answer, just say that you don't know, don't try to make up an answer. Do not mention the context in your answer
+  `\n\nHuman:Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer.
   ----------------
   CONTEXT: {context}
   ----------------
@@ -74,7 +79,6 @@ const chain = RunnableSequence.from([
       input.chatHistory,
     context: async (input) => {
       const relevantDocs = await retriever.getRelevantDocuments(input.question);
-      console.log(relevantDocs)
       const serialized = formatDocumentsAsString(relevantDocs);
       return serialized;
     },
@@ -84,29 +88,30 @@ const chain = RunnableSequence.from([
   new StringOutputParser(),
 ]);
 
+const questionOne = "What did the president say about Justice Breyer?";
 
-const result = await chain.invoke({
-  chatHistory: chatHistory,
-  question: userPrompt,
+const resultOne = await chain.invoke({
+  question: questionOne,
 });
-console.log(result)
-chatHistory = formatChatHistory(userPrompt,result,chatHistory)
-console.log(chatHistory)
-var response = {
-  statusCode: 200,
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "*",
-  },
-  
-  body: JSON.stringify({
-    "answer": result,
-    "chatHistory": chatHistory
-  })
 
+console.log({ resultOne });
+/**
+ * {
+ *   resultOne: 'The president thanked Justice Breyer for his service and described him as an Army veteran, Constitutional scholar, and retiring Justice of the United States Supreme Court.'
+ * }
+ */
+
+const resultTwo = await chain.invoke({
+  chatHistory: formatChatHistory(resultOne, questionOne),
+  question: "Was it nice?",
+});
+
+console.log({ resultTwo });
+/**
+ * {
+ *   resultTwo: "Yes, the president's description of Justice Breyer was positive."
+ * }
+ */
 }
-console.log(response)
-return response
 
-
-}
+handler({queryStringParameters:"hello"})

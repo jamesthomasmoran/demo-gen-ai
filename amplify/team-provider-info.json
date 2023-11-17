@@ -45,7 +45,7 @@
       "function": {
         "BedrockCharacterDemoGenerateText": {
           "deploymentBucketName": "amplify-bedrockcharacterdemo-testenv-180707-deployment",
-          "s3Key": "amplify-builds/BedrockCharacterDemoGenerateText-2f43663666514b497777-build.zip"
+          "s3Key": "amplify-builds/BedrockCharacterDemoGenerateText-7554505632474b795935-build.zip"
         },
         "KendraBackedChatBotGenerationFunction": {
           "kendraIndexId": "85517a2a-b43b-4082-b12e-061b42e230b2",
@@ -65,6 +65,36 @@
       "api": {
         "textGenAPI": {},
         "textGenerationAPI": {}
+      }
+    }
+  },
+  "christine": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bedrockcharacterdemo-christine-122012-authRole",
+      "UnauthRoleArn": "arn:aws:iam::754992014538:role/amplify-bedrockcharacterdemo-christine-122012-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::754992014538:role/amplify-bedrockcharacterdemo-christine-122012-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-bedrockcharacterdemo-christine-122012-deployment",
+      "UnauthRoleName": "amplify-bedrockcharacterdemo-christine-122012-unauthRole",
+      "StackName": "amplify-bedrockcharacterdemo-christine-122012",
+      "StackId": "arn:aws:cloudformation:us-east-1:754992014538:stack/amplify-bedrockcharacterdemo-christine-122012/804f6ef0-847a-11ee-be85-0a5c65dffa31",
+      "AmplifyAppId": "d29fhkjpb9b02o"
+    },
+    "categories": {
+      "function": {
+        "BedrockCharacterDemoGenerateText": {
+          "deploymentBucketName": "amplify-bedrockcharacterdemo-christine-122012-deployment",
+          "s3Key": "amplify-builds/BedrockCharacterDemoGenerateText-732b7363306c364a354f-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d29fhkjpb9b02o",
+          "type": "manual"
+        }
+      },
+      "api": {
+        "textGenAPI": {}
       }
     }
   }
